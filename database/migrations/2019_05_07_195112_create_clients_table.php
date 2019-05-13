@@ -23,6 +23,7 @@ class CreateClientsTable extends Migration
             $table->string('city', 255);
             $table->string('state', 255);
             $table->string('zip', 255);
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
         });
     }

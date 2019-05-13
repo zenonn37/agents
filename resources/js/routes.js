@@ -5,6 +5,8 @@ import Clients from "./views/Clients";
 import Clients_Show from "./views/Clients_Show";
 import New_Client from "./views/New_Client";
 import ClientUpdate from "./views/ClientUpdate";
+import Register from "./views/Register";
+import Login from "./views/Login";
 
 import Documents from "./views/Documents";
 import About from "./views/About";
@@ -16,6 +18,8 @@ export default {
         { path: "/", component: Home, name: "home" },
         { path: "/account", component: Account, name: "account" },
         { path: "/clients", component: Clients, name: "client" },
+        { path: "/register", component: Register, name: "register" },
+        { path: "/login", component: Login, name: "login" },
         {
             path: "/clients/:id",
             component: Clients_Show,

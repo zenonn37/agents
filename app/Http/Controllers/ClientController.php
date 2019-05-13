@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
@@ -43,31 +44,36 @@ class ClientController extends Controller
 
         ]);
 
-        $client = new Client();
+        // $client = new Client();
 
-        $client->first = $request->first;
-        $client->last = $request->last;
-        $client->email = $request->email;
-        $client->phone = $request->phone;
-        $client->street = $request->street;
-        $client->city = $request->city;
-        $client->state = $request->state;
-        $client->zip = $request->zip;
+        // $client->first = $request->first;
+        // $client->last = $request->last;
+        // $client->email = $request->email;
+        // $client->phone = $request->phone;
+        // $client->street = $request->street;
+        // $client->city = $request->city;
+        // $client->state = $request->state;
+        // $client->zip = $request->zip;
 
 
-        // $client = Client::create([
-        //     'first' => $request->first,
-        //     'last' => $request->last,
-        //     'email' => $request->email,
-        //     'phone' => $request->phone,
-        //     'street' => $request->street,
-        //     'city' => $request->city,
-        //     'state' => $request->state,
 
-        // ]);
 
-        $client->save();
-        return response($client, 201);
+        // $client->save();
+
+        $user = Auth::user()->clients()->create([
+
+            'first' => $request->first,
+            'last' => $request->last,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'street' => $request->street,
+            'city' => $request->city,
+            'state' => $request->state,
+            'zip' => $request->zip,
+
+
+        ]);
+        return response($user, 201);
     }
 
     /**

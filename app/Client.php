@@ -12,4 +12,9 @@ class Client extends Model
         'state', 'zip'
 
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

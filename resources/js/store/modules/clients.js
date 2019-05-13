@@ -81,12 +81,12 @@ const actions = {
     add({ commit }, payload) {
         console.log(payload);
 
-        // if (!localStorage.getItem("access_token") || undefined) {
-        //     return false;
-        // }
-        // const token = localStorage.getItem("access_token");
+        if (!localStorage.getItem("access_token") || undefined) {
+            return false;
+        }
+        const token = localStorage.getItem("access_token");
 
-        // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         return new Promise((resolve, reject) => {
             axios
                 .post("api/clients", payload)

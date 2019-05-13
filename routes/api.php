@@ -24,3 +24,6 @@ Route::get('/clients/{client}', 'ClientController@show');
 Route::post('/clients', 'ClientController@store');
 Route::patch('/clients/{client}', 'ClientController@update');
 Route::delete('/clients/{client}', 'ClientController@destroy');
+
+Route::post('/login', 'AuthController@login');
+Route::post('/register', 'AuthController@register');
