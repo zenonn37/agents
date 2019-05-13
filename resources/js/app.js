@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Vuetify from "vuetify";
 import axios from "axios";
+import { store } from "./store/store";
 
 import routes from "./routes";
 
@@ -14,6 +15,6 @@ Vue.use(Vuetify);
 Vue.component("app", require("./App.vue").default);
 
 const app = new Vue({
-    el: "#app",
-    router: new VueRouter(routes)
-});
+    router: new VueRouter(routes),
+    store
+}).$mount("#app");

@@ -2,7 +2,7 @@
   <div>
     <v-layout row warp>
       <v-flex mb-5>
-        <h1>Clients</h1>
+        <h1 class="grey--text">Clients</h1>
         <div>
           <v-btn small dark @click="onNewClient" color="blue">
             <v-icon left>supervised_user_circle</v-icon>New Client

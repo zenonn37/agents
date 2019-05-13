@@ -144,7 +144,11 @@ export default {
     },
     onCreate() {
       console.log(this.client);
-      this.$store.dispatch("clients/add", this.client);
+      this.$store.dispatch("add", this.client).then(res => {
+        console.log(res.data.id + "new");
+        const id = res.data.id;
+        this.$router.push("/clients/" + id);
+      });
     }
   }
 };

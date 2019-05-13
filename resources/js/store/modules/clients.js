@@ -9,19 +9,11 @@ const mutations = {
     setClients(state, payload) {
         state.clients = payload;
     },
-    add(state, payload) {
-        state.clients = payload;
-    },
-    show(state, payload) {
+    setClient(state, payload) {
         state.client = payload;
     },
-    update(state, payload) {
-        const clients = state.clients.find(client => {
-            return client.id === payload.id;
-        });
-    },
-    delete(state, payload) {
-        state.clients.splice(state.clients.indexOf(payload), 1);
+    add(state, payload) {
+        state.clients = payload;
     }
 };
 
@@ -64,91 +56,92 @@ const actions = {
             });
     },
     show({ commit }, id) {
-        if (!localStorage.getItem("access_token") || undefined) {
-            return false;
-        }
-        const token = localStorage.getItem("access_token");
-
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         console.log(id);
 
-        axios
-            .get("/clients/" + id)
+        // if (!localStorage.getItem("access_token") || undefined) {
+        //     return false;
+        // }
+        // const token = localStorage.getItem("access_token");
 
-            .then(res => {
-                console.log(res.data.data);
-                commit("show", res.data.data);
-                //vueContext.commit('complete', false, { root: true })
-            })
-            .catch(err => {
-                console.log(err.message);
-            });
+        // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        // console.log(id);
+        return new Promise((resolve, reject) => {
+            axios
+                .get("api/clients/" + id)
+                .then(res => {
+                    console.log(res.data);
+                    commit("setClient", res.data);
+                    resolve(res);
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        });
     },
     add({ commit }, payload) {
         console.log(payload);
-        commit("COMPLETE", false, { root: true });
-        commit("LOADING", true, { root: true });
 
-        if (!localStorage.getItem("access_token") || undefined) {
-            return false;
-        }
-        const token = localStorage.getItem("access_token");
+        // if (!localStorage.getItem("access_token") || undefined) {
+        //     return false;
+        // }
+        // const token = localStorage.getItem("access_token");
 
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+        return new Promise((resolve, reject) => {
+            axios
+                .post("api/clients", payload)
 
-        axios
-            .post("/clients", {
-                ...payload,
-                documents: 0,
-                status: false
-            })
-            .then(res => {
-                const id = res.data.data.id;
-                console.log(res.data.data);
-                commit("add", res.data.data);
-                commit("COMPLETE", true, { root: true });
-                commit("LOADING", false, { root: true });
-                this.$router.push("/clients/" + id);
-                //vueContext.commit('complete', false, { root: true })
-            })
-            .catch(err => {
-                console.log(err.message);
-                commit("ERRORS", err.message, { root: true });
-            });
+                .then(res => {
+                    commit("add", res.data);
+                    resolve(res);
+                })
+                .catch(err => {
+                    console.log(err.message);
+                    reject(err);
+                });
+        });
     },
     UPDATE_CLIENT({ commit }, client) {
-        if (!localStorage.getItem("access_token") || undefined) {
-            return false;
-        }
-        const token = localStorage.getItem("access_token");
+        // if (!localStorage.getItem("access_token") || undefined) {
+        //     return false;
+        // }
+        // const token = localStorage.getItem("access_token");
 
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-        axios
-            .patch("/clients/" + client.id, client)
-            .then(res => {
-                console.log(res.data.data);
-                this.$router.push("/clients/" + client.id);
-            })
-            .catch(err => {
-                //console.log(err.message)
-                commit("errors", err.message, { root: true });
-            });
+        // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+
+        return new Promise((resolve, reject) => {
+            axios
+                .patch("api/clients/" + client.id, client)
+                .then(res => {
+                    resolve(res);
+                    console.log(res.data.data);
+                })
+                .catch(err => {
+                    reject(err);
+                    console.log(err.message);
+                    //commit("errors", err.message, { root: true });
+                });
+        });
     },
     DELETE_CLIENT({ commit }, id) {
-        if (!localStorage.getItem("access_token") || undefined) {
-            return false;
-        }
-        const token = localStorage.getItem("access_token");
+        // if (!localStorage.getItem("access_token") || undefined) {
+        //     return false;
+        // }
+        // const token = localStorage.getItem("access_token");
 
-        axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-        axios
-            .delete("/clients/" + id)
-            .then(() => {
-                this.$router.push("/clients");
-            })
-            .catch(err => {
-                commit("errors", err.message, { root: true });
-            });
+        // axios.defaults.headers.common["Authorization"] = "Bearer " + token;
+
+        return new Promise((resolve, reject) => {
+            axios
+                .delete("api/clients/" + id)
+                .then(() => {
+                    resolve();
+                })
+                .catch(err => {
+                    reject();
+                    //commit("errors", err.message, { root: true });
+                });
+        });
     },
     UPLOAD_AVATAR({ commit }, image) {
         const token = localStorage.getItem("access_token");

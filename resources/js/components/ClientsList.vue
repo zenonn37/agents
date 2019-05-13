@@ -9,7 +9,9 @@
 
           <v-list-tile-content>
             <v-list-tile-title>
-              <strong class="grey--text">{{data.first}} {{data.last}}</strong>
+              <router-link :to="`/clients/${data.id}`">
+                <strong class="grey--text">{{data.first}} {{data.last}}</strong>
+              </router-link>
             </v-list-tile-title>
             <v-list-tile-sub-title>
               <small>{{data.email}} | {{data.phone}}</small>

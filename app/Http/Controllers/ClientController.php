@@ -28,7 +28,46 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        //$client =  Customer::create($this->validateRequest());
+        $request->validate([
+            'first' => 'required|string',
+            'last' => 'required|string',
+            'email' => 'required|string',
+            'phone' => 'required|string',
+            'street' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'zip' => 'required|string',
+
+
+        ]);
+
+        $client = new Client();
+
+        $client->first = $request->first;
+        $client->last = $request->last;
+        $client->email = $request->email;
+        $client->phone = $request->phone;
+        $client->street = $request->street;
+        $client->city = $request->city;
+        $client->state = $request->state;
+        $client->zip = $request->zip;
+
+
+        // $client = Client::create([
+        //     'first' => $request->first,
+        //     'last' => $request->last,
+        //     'email' => $request->email,
+        //     'phone' => $request->phone,
+        //     'street' => $request->street,
+        //     'city' => $request->city,
+        //     'state' => $request->state,
+
+        // ]);
+
+        $client->save();
+        return response($client, 201);
     }
 
     /**
@@ -39,7 +78,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
-        //
+
+        // return Client::find($client);
+        return response($client, 201);
     }
 
 
@@ -53,7 +94,21 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $data = $request->validate([
+            'first' => 'required|string',
+            'last' => 'required|string',
+            'email' => 'required|string',
+            'phone' => 'required|string',
+            'street' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'zip' => 'required|string',
+
+
+        ]);
+
+        $client->update($data);
+        return response($client, 201);
     }
 
     /**
@@ -64,6 +119,23 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        $client->delete();
+        return response('Destroyes', 201);
+    }
+
+    private function validateRequest()
+    {
+
+        return request()->validate([
+            'first' => 'required|string',
+            'last' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'street' => 'required|string',
+            'city' => 'required|string',
+            'state' => 'required|string',
+            'zip' => 'required|string',
+
+        ]);
     }
 }
