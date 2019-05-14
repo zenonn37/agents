@@ -48337,7 +48337,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_New_Client__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./views/New_Client */ "./resources/js/views/New_Client.vue");
 /* harmony import */ var _views_ClientUpdate__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./views/ClientUpdate */ "./resources/js/views/ClientUpdate.vue");
 /* harmony import */ var _views_Register__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./views/Register */ "./resources/js/views/Register.vue");
-/* harmony import */ var _views_Login__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./views/Login */ "./resources/js/views/Login.vue");
+/* harmony import */ var _views_Login__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./views/Login */ "./resources/js/views/Login.vue");
 /* harmony import */ var _views_Documents__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./views/Documents */ "./resources/js/views/Documents.vue");
 /* harmony import */ var _views_About__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./views/About */ "./resources/js/views/About.vue");
 /* harmony import */ var _views_Contact__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./views/Contact */ "./resources/js/views/Contact.vue");
@@ -48375,7 +48375,7 @@ __webpack_require__.r(__webpack_exports__);
     name: "register"
   }, {
     path: "/login",
-    component: _views_Login__WEBPACK_IMPORTED_MODULE_12__["default"],
+    component: _views_Login__WEBPACK_IMPORTED_MODULE_8__["default"],
     name: "login"
   }, {
     path: "/clients/:id",
