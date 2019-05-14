@@ -24,6 +24,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/clients/{client}', 'ClientController@destroy');
     Route::get('/clients', 'ClientController@index');
     Route::get('/clients/{client}', 'ClientController@show');
+    Route::post('/logout', 'AuthController@logout');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

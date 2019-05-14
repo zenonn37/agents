@@ -3,6 +3,8 @@
     <v-layout row warp>
       <v-flex>
         <h1>Account</h1>
+        <p>{{acct.name}}</p>
+        <p>{{acct.email}}</p>
       </v-flex>
     </v-layout>
   </div>
@@ -12,7 +14,7 @@
 export default {
   mounted() {
     this.$store.dispatch("ACCOUNT").then(() => {
-      console.log(loaded);
+      console.log("loaded");
     });
   },
   computed: {

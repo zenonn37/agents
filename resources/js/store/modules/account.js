@@ -30,7 +30,7 @@ const actions = {
                 .then(res => {
                     resolve(res);
                     console.log(res.data);
-                    commit("SET_ACCOUNT", res, data);
+                    commit("SET_ACCOUNT", res.data);
                 })
                 .catch(err => {
                     reject(err);
@@ -38,4 +38,11 @@ const actions = {
                 });
         });
     }
+};
+
+export default {
+    state,
+    mutations,
+    getters,
+    actions
 };
