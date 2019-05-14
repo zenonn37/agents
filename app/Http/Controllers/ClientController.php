@@ -15,8 +15,9 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $client = Client::all();
-        return response($client, 201);
+        $clients = Client::where('user_id', auth()->user()->id)->get();
+        // $client = Client::all();
+        return response($clients, 201);
     }
 
 

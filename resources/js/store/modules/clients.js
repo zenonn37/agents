@@ -46,10 +46,10 @@ const actions = {
 
         axios.defaults.headers.common["Authorization"] = "Bearer " + token;
         axios
-            .get("/clients")
+            .get("api/clients")
             .then(res => {
-                console.log(res.data.data);
-                commit("setClients", res.data.data);
+                console.log(res.data);
+                commit("setClients", res.data);
             })
             .catch(err => {
                 console.log(err);

@@ -13,17 +13,29 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::post('/clients', 'ClientController@store');
+    Route::patch('/clients/{client}', 'ClientController@update');
+    Route::delete('/clients/{client}', 'ClientController@destroy');
+    Route::get('/clients', 'ClientController@index');
+    Route::get('/clients/{client}', 'ClientController@show');
 });
+
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 //get clients/show
-Route::get('/clients', 'ClientController@index');
-Route::get('/clients/{client}', 'ClientController@show');
+
+
 
 //post clients/add/update/destroy
-Route::post('/clients', 'ClientController@store');
-Route::patch('/clients/{client}', 'ClientController@update');
-Route::delete('/clients/{client}', 'ClientController@destroy');
+//Route::post('/clients', 'ClientController@store');
+
 
 Route::post('/login', 'AuthController@login');
 Route::post('/register', 'AuthController@register');

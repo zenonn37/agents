@@ -9,7 +9,18 @@
 </template>
 
 <script>
-export default {};
+export default {
+  mounted() {
+    this.$store.dispatch("ACCOUNT").then(() => {
+      console.log(loaded);
+    });
+  },
+  computed: {
+    acct() {
+      return this.$store.getters.GET_ACCOUNT;
+    }
+  }
+};
 </script>
 
 <style>

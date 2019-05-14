@@ -27,9 +27,7 @@ export default {
   },
 
   data() {
-    return {
-      clients: []
-    };
+    return {};
   },
   methods: {
     onNewClient() {
@@ -40,18 +38,24 @@ export default {
   computed: {
     name() {
       return this.clients.first + " " + this.clients.last;
+    },
+    clients() {
+      return this.$store.getters.allClients;
     }
   },
   created() {
-    axios
-      .get("api/clients")
-      .then(res => {
-        this.clients = res.data;
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.$store.dispatch("clients").then(() => {
+      console.log("loaded");
+    });
+    // axios
+    //   .get("api/clients")
+    //   .then(res => {
+    //     this.clients = res.data;
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 };
 </script>

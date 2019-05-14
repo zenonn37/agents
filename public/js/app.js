@@ -2086,7 +2086,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mounted: function mounted() {
+    this.$store.dispatch("ACCOUNT").then(function () {
+      console.log(loaded);
+    });
+  },
+  computed: {
+    acct: function acct() {
+      return this.$store.getters.GET_ACCOUNT;
+    }
+  }
+});
 
 /***/ }),
 
@@ -2174,9 +2185,7 @@ __webpack_require__.r(__webpack_exports__);
     ClientsList: _components_ClientsList__WEBPACK_IMPORTED_MODULE_0__["default"]
   },
   data: function data() {
-    return {
-      clients: []
-    };
+    return {};
   },
   methods: {
     onNewClient: function onNewClient() {
@@ -2189,17 +2198,23 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     name: function name() {
       return this.clients.first + " " + this.clients.last;
+    },
+    clients: function clients() {
+      return this.$store.getters.allClients;
     }
   },
   created: function created() {
-    var _this = this;
-
-    axios.get("api/clients").then(function (res) {
-      _this.clients = res.data;
-      console.log(res.data);
-    })["catch"](function (err) {
-      console.log(err);
-    });
+    this.$store.dispatch("clients").then(function () {
+      console.log("loaded");
+    }); // axios
+    //   .get("api/clients")
+    //   .then(res => {
+    //     this.clients = res.data;
+    //     console.log(res.data);
+    //   })
+    //   .catch(err => {
+    //     console.log(err);
+    //   });
   }
 });
 
@@ -2388,10 +2403,11 @@ __webpack_require__.r(__webpack_exports__);
         username: this.username,
         password: this.password
       }).then(function (res) {
-        console.log(res.data);
+        console.log("logged");
+        console.log(res.data.access_token);
         localStorage.setItem("access_token", res.data.access_token);
 
-        _this.$router.push("/dashboard");
+        _this.$router.push("/");
       })["catch"](function (err) {
         console.log(err);
       });
@@ -48392,9 +48408,9 @@ var actions = {
 
     var token = localStorage.getItem("access_token");
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common["Authorization"] = "Bearer " + token;
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/clients").then(function (res) {
-      console.log(res.data.data);
-      commit("setClients", res.data.data);
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("api/clients").then(function (res) {
+      console.log(res.data);
+      commit("setClients", res.data);
     })["catch"](function (err) {
       console.log(err);
     });

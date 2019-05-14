@@ -29,9 +29,11 @@ export default {
           password: this.password
         })
         .then(res => {
-          console.log(res.data);
+          console.log("logged");
+
+          console.log(res.data.access_token);
           localStorage.setItem("access_token", res.data.access_token);
-          this.$router.push("/dashboard");
+          this.$router.push("/");
         })
         .catch(err => {
           console.log(err);
