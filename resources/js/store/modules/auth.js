@@ -1,5 +1,4 @@
 import axios from "axios";
-import { resolve } from "q";
 
 const state = {
     user: "",
@@ -7,8 +6,8 @@ const state = {
 };
 
 const mutations = {
-    SET_AUTH(state, token) {
-        state.auth = token;
+    SET_AUTH(state, payload) {
+        state.token = payload;
     },
     USER(state, user) {
         state.user = user;
@@ -21,7 +20,7 @@ const mutations = {
 
 const getters = {
     GET_AUTH(state) {
-        return state.auth;
+        return state.token;
     },
     GET_USER(state) {
         return state.user;
@@ -29,6 +28,33 @@ const getters = {
 };
 
 const actions = {
+    LOGIN({ commit }, credentials) {
+        console.log(credentials);
+
+        return new Promise((resolve, reject) => {
+            axios
+                .post("api/login", {
+                    username: credentials.username,
+                    password: credentials.password
+                })
+                .then(res => {
+                    console.log(res);
+
+                    const token = res.data.access_token;
+
+                    commit("SET_AUTH", token);
+                    localStorage.setItem("access_token", token);
+                    resolve(res);
+                    // commit("USER", res.data);
+                })
+                .catch(err => {
+                    console.log(err.error);
+
+                    reject(err);
+                });
+        });
+    },
+
     AUTH({ commit }) {
         if (!localStorage.getItem("access_token") || undefined) {
             return false;
@@ -52,9 +78,9 @@ const actions = {
         });
     },
     LOGOUT({ commit }) {
-        if (!localStorage.getItem("access_token") || undefined) {
-            return false;
-        }
+        // if (!localStorage.getItem("access_token") || undefined) {
+        //     return false;
+        // }
 
         return new Promise((resolve, reject) => {
             axios
@@ -67,6 +93,8 @@ const actions = {
                 .catch(err => {
                     console.log(err);
                     reject();
+                    localStorage.removeItem("access_token");
+                    commit("CLEAR_AUTH");
                 });
         });
     }
